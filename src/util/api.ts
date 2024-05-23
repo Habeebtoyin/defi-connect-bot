@@ -1,21 +1,27 @@
 import { createClient } from "@supabase/supabase-js";
 import { GenerateWallet } from "./blockchain";
 import axios from "axios";
-// const supabaseUrl = "https://auswwgwgwrvdcalpueit.supabase.co";
-const supabaseUrl="https://tkjdpilcqvkmjkestlta.supabase.co";
-// const supabaseKey =
-// 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1c3d3Z3dnd3J2ZGNhbHB1ZWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg1ODExNDksImV4cCI6MjAwNDE1NzE0OX0.hUN5bxHBK4aJXGBTI5lWFb-oIAWoCnBfcXbljb5vM8Y";
-const supabaseKey ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRramRwaWxjcXZrbWprZXN0bHRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQyOTQwNzcsImV4cCI6MjAyOTg3MDA3N30.d1NdcyCYHg75vEbNBvzWNpvQCSzAushoQ47Wdt3Ee6M";
+
+// const supabaseUrl="https://tkjdpilcqvkmjkestlta.supabase.co";
+
+// const supabaseKey ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRramRwaWxjcXZrbWprZXN0bHRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQyOTQwNzcsImV4cCI6MjAyOTg3MDA3N30.d1NdcyCYHg75vEbNBvzWNpvQCSzAushoQ47Wdt3Ee6M";
+
+const supabaseUrl="https://vaelwjgqigbxpdpzkggs.supabase.co";
+const supabaseKey= 
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhZWx3amdxaWdieHBkcHprZ2dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYyOTI3MTAsImV4cCI6MjAzMTg2ODcxMH0.xKGlQbd71BAh4fH2XOSZ9bCNYsVRtc4jyxe11v1qFC8";
+            
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 export async function authUser(userId, ctx) {
 	try {
 		const supabase = createClient(supabaseUrl, supabaseKey);
 		ctx.reply("Fetching data");
-		let { data: botUsers, error }: any = await supabase
-			.from("botUsers")
+		let { data: userCoreBot, error }: any = await supabase
+			// .from("botUsers")
+			.from("userCoreBot")
 			.select("*")
 			.eq("userID", userId);
-		if (botUsers.length < 1) {
+		if (userCoreBot.length < 1) {
 			const pK1 = GenerateWallet();
 			const pK2 = GenerateWallet();
 			const pK3 = GenerateWallet();
@@ -23,8 +29,9 @@ export async function authUser(userId, ctx) {
 			// ctx.reply("Registering......")
 			try {
 				const response = await axios.post(
-					// "https://auswwgwgwrvdcalpueit.supabase.co/rest/v1/botUsers",
-					"https://tkjdpilcqvkmjkestlta.supabase.co/rest/v1/botUsers",
+					
+					// "https://tkjdpilcqvkmjkestlta.supabase.co/rest/v1/botUsers",
+					"https://vaelwjgqigbxpdpzkggs.supabase.co/rest/v1/userCoreBot",
 					// '{ "some_column": "someValue", "other_column": "otherValue" }',
 					{
 						pK1,
@@ -45,20 +52,20 @@ export async function authUser(userId, ctx) {
 				console.log(error);
 			}
 
-			let { data: botUsers, error }: any = await supabase
-				.from("botUsers")
+			let { data: userCoreBot, error }: any = await supabase
+				.from("userCoreBot")
 				.select("*")
 				.eq("userID", userId);
-			return botUsers[0];
+			return userCoreBot[0];
 			// console.log({ data, error });
 		}
-		if (botUsers.length > 0) {
+		if (userCoreBot.length > 0) {
 			//  ctx.reply("Logging In ....")
-			let { data: botUsers, error }: any = await supabase
-				.from("botUsers")
+			let { data: userCoreBot, error }: any = await supabase
+				.from("userCoreBot")
 				.select("*")
 				.eq("userID", userId);
-			return botUsers[0];
+			return userCoreBot[0];
 		}
 	} catch (error) {}
 
@@ -76,7 +83,7 @@ export async function addToken(
 	try {
 		const res = await axios.post(
 			// "https://auswwgwgwrvdcalpueit.supabase.co/rest/v1/botUserTokens",
-			"https://tkjdpilcqvkmjkestlta.supabase.co/rest/v1/botUserTokens",
+			"https://vaelwjgqigbxpdpzkggs.supabase.co/rest/v1/userCoreTokens",
 			// '{ "some_column": "someValue", "other_column": "otherValue" }',
 			{
 				userID,
@@ -106,14 +113,14 @@ export async function addToken(
 export async function getUserTokenAndBalances(userID, wallet, chain, ctx) {
 	//filter with params
 	const supabase = createClient(supabaseUrl, supabaseKey);
-	let { data: botUserTokens, error } = await supabase
-		.from("botUserTokens")
+	let { data: userCoreTokens, error } = await supabase
+		.from("userCoreTokens")
 		.select("*")
 		.eq("userID", userID)
 		.eq("walletAddress", wallet)
 		.eq("chain", chain);
 	//  console.log(botUserTokens, userID, wallet, chain)
-	return botUserTokens;
+	return userCoreTokens;
 }
 module.exports = {
 	authUser,

@@ -18,6 +18,7 @@ import express = require("express");
 import { buyToken, sellToken } from "./src/util/trade";
 import { authUser, addToken, getUserTokenAndBalances } from "./src/util/api";
 import { Wallet, getGasPrice, getWalletAddress } from "./src/util/blockchain";
+// import { CreateWallet } from "./src/web3/wallet.web3";
 import {
 	BSC_RPC_URL,
 	ETH_RPC_URL,
@@ -58,7 +59,7 @@ async function greeting(
 }
 
 const selectScan = (chain: string) =>
-	chain === "BSC" ? BSC_TESTNET : ETH_TESTNET;
+	chain === "CORE" ? BSC_TESTNET : ETH_TESTNET;
 
 const calculatePercentage = (walletBalance: string, percent: string) =>
 	(parseFloat(walletBalance) * parseFloat(percent)) / 100;
@@ -79,13 +80,16 @@ async function withdrawTokenConversation(
 	const userId = ctx.from.id.toString();
 	const userData = await authUser(userId, ctx);
 	const keyboardChain = new InlineKeyboard()
-		.text("BSC", "BSC")
-		.text("ETH", "ETH");
-	await ctx.reply("Select Chain : (BSC/ETH)", {
+		// .text("BSC", "BSC")
+		// .text("ETH", "ETH");
+		.text("CORE", "CORE");
+	// await ctx.reply("Select Chain : (BSC/ETH)", {
+		await ctx.reply("Select Chain : (CORE)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
-		["BSC", "ETH"],
+		// ["BSC", "CORE"],
+		["CORE"],
 		{
 			otherwise: (ctx: { reply: (arg0: string, arg1: any) => any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -183,13 +187,16 @@ async function withDrawEthConversation(
 	const userId = ctx.from.id.toString();
 	const userData = await authUser(userId, ctx);
 	const keyboardChain = new InlineKeyboard()
-		.text("BSC", "BSC")
-		.text("ETH", "ETH");
-	ctx.reply("Select Chain : (BSC/ETH)", {
+		// .text("BSC", "BSC")
+		// .text("ETH", "ETH");
+		.text("CORE", "CORE");
+	// ctx.reply("Select Chain : (BSC/ETH)", {
+		ctx.reply("Select Chain : (CORE)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
-		["BSC", "ETH"],
+		// ["BSC", "ETH"],
+		["CORE"],
 		{
 			otherwise: (ctx: { reply: any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -338,13 +345,16 @@ async function sellConversation(
 	const userId = ctx.from.id.toString();
 	const userData = await authUser(userId, ctx);
 	const keyboardChain = new InlineKeyboard()
-		.text("BSC", "BSC")
-		.text("ETH", "ETH");
-	await ctx.reply("Select Chain : (BSC/ETH)", {
+		// .text("BSC", "BSC")
+		// .text("ETH", "ETH");
+		.text("CORE", "CORE");
+	// await ctx.reply("Select Chain : (BSC/ETH)", {
+			await ctx.reply("Select Chain : (CORE)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
-		["BSC", "ETH"],
+		// ["BSC", "ETH"],
+		["CORE"],
 		{
 			otherwise: (ctx: {
 				reply: (
@@ -360,7 +370,7 @@ async function sellConversation(
 	let tokenAddressCtx = await conversation.waitFor(":text");
 	if (!isAddress(tokenAddressCtx.msg.text)) {
 		await ctx.reply(
-			"Not an Ethereum Address \n Kindly input Token Contract Address:"
+			"Not a a Coredao Address \n Kindly input Token Contract Address:"
 		);
 		tokenAddressCtx = await conversation.waitFor(":text");
 	}
@@ -381,7 +391,7 @@ async function sellConversation(
 		.text("90 %", "90")
 		.text("100 %", "98")
 		.row();
-	await ctx.reply("Kindly input Sell Amount: (in BEP20/ERC20): ", {
+	await ctx.reply("Kindly input Sell Amount: (in ERC20): ", {
 		reply_markup: keyboardAmount,
 	});
 	const responseAmount = await conversation.waitForCallbackQuery(
@@ -540,13 +550,16 @@ async function buyConversation(
 	const userId = ctx.from.id.toString();
 	const userData = await authUser(userId, ctx);
 	const keyboardChain = new InlineKeyboard()
-		.text("BSC", "BSC")
-		.text("ETH", "ETH");
-	await ctx.reply("Select Chain : (BSC/ETH)", {
+		// .text("BSC", "BSC")
+		// .text("ETH", "ETH");
+		.text("CORE", "CORE");
+	// await ctx.reply("Select Chain : (BSC/ETH)", {
+		await ctx.reply("Select Chain : (CORE)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
-		["BSC", "ETH"],
+		// ["BSC", "ETH"],
+		["CORE"],
 		{
 			otherwise: (ctx: {
 				reply: (
@@ -584,7 +597,8 @@ async function buyConversation(
 		.text("90 %", "90")
 		.text("100 %", "98")
 		.row();
-	await ctx.reply("Kindly input Purchase Amount: (in BNB/ETH): ", {
+	// await ctx.reply("Kindly input Purchase Amount: (in BNB/ETH): ", {
+		await ctx.reply("Kindly input Purchase Amount: (in CORE): ", {
 		reply_markup: keyboardAmount,
 	});
 	const responseAmount = await conversation.waitForCallbackQuery(
@@ -743,13 +757,16 @@ async function addTokenConversation(
 	const userId = ctx.from.id.toString();
 	const userData = await authUser(userId, ctx);
 	const keyboardChain = new InlineKeyboard()
-		.text("BSC", "BSC")
-		.text("ETH", "ETH");
-	await ctx.reply("Select Chain : (BSC/ETH)", {
+		// .text("BSC", "BSC")
+		// .text("ETH", "ETH");
+		.text("CORE", "CORE");
+	// await ctx.reply("Select Chain : (BSC/ETH)", {
+		await ctx.reply("Select Chain : (CORE)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
-		["BSC", "ETH"],
+		// ["BSC", "ETH"],
+		["CORE"],
 		{
 			otherwise: (ctx: { reply: any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -812,13 +829,16 @@ async function showTokenBalance(
 	const userId = ctx.from.id.toString();
 	const userData = await authUser(userId, ctx);
 	const keyboardChain = new InlineKeyboard()
-		.text("BSC", "BSC")
-		.text("ETH", "ETH");
-	ctx.reply("Select Chain : (BSC/ETH)", {
+		// .text("BSC", "BSC")
+	// 	.text("ETH", "ETH");
+	// ctx.reply("Select Chain : (BSC/ETH)", {
+		.text("CORE", "CORE");
+		ctx.reply("Select Chain : (CORE)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
-		["BSC", "ETH"],
+		// ["BSC", "ETH"],
+		["CORE"],
 		{
 			otherwise: (ctx: { reply: any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -840,7 +860,7 @@ async function showTokenBalance(
 	const walletCtx = response.match;
 	//get chain
 
-	const privateKey = () => {
+	const privateKey = async () => {
 		switch (walletCtx.toLowerCase()) {
 			case "w1":
 				return userData.pK1;
@@ -857,25 +877,34 @@ async function showTokenBalance(
 		userId,
 		walletAddress,
 		// 1,
-		1116,
+		// 1116,
+		ctx,
 		ChainCtx
 	);
 	console.log(ChainCtx, walletCtx);
+	console.log(botUserTokens);
 	ctx.reply("Getting Token Balance");
 	const user = new Wallet(
-		1116,
+		// 1116,
+		ctx,
 		selectScan(ChainCtx.toUpperCase()).rpc,
-		privateKey(),
+		// ETH_TESTNET.rpc,
+		await privateKey(),
 		walletAddress
 	);
+	// console.log(user);
+	// const user = new CreateWallet();
 	if (botUserTokens.length > 0) {
 		const TokenBalances = botUserTokens.map(
 			async (token: { tokenAddress: any }) => {
 				const { tokenAddress } = token;
-				//console.log(tokenAddress)
+				console.log(tokenAddress)
 				const balance = await user.checkErc20Balance(tokenAddress);
 				const symbol = await user.getSymbol(tokenAddress);
 				const decimal = await user.getDecimals(tokenAddress);
+				// const balance = await user.tokenBalanceOf(walletAddress, tokenAddress);
+				// const symbol = await user.getSymbol(tokenAddress);
+				// const decimal = await user.getDecimals(tokenAddress);
 				ctx.reply(
 					`Symbol: ${symbol} \n Balance:${ethers.formatUnits(
 						balance,
@@ -886,7 +915,7 @@ async function showTokenBalance(
 		);
 	}
 	if (botUserTokens.length === 0) {
-		ctx.reply("Not token Found Pls Add Token to This Wallet");
+		ctx.reply("No token Found Pls Add Token to This Wallet");
 	}
 
 	//getuser====>get user tokens and if none then start a conversation
@@ -929,13 +958,14 @@ const menu = new Menu("my-menu-identifier")
 	)
 	.row()
 	.text(
-		"Withdraw ETH/BNB   ",
+		// "Withdraw ETH/BNB   ",
+		"Withdraw CORE",
 		async (ctx: any) =>
 			await ctx.conversation.enter("withDrawEthConversation")
 	)
 	.row()
 	.text(
-		"Withdraw ERC20/BEP20 Tokens",
+		"Withdraw ERC20 Tokens",
 		async (ctx: any) =>
 			await ctx.conversation.enter("withdrawTokenConversation")
 	)
@@ -950,26 +980,26 @@ const menu = new Menu("my-menu-identifier")
 		async (ctx: any) => await ctx.conversation.enter("addTokenConversation")
 	)
 	.row()
-	.text(
-		"Buy Limit",
-		async (ctx: any) => await ctx.conversation.enter("BuyLimitConversation")
-	)
-	.text(
-		"Sell Limit",
-		async (ctx: any) =>
-			await ctx.conversation.enter("sellLimitConversation")
-	)
-	.row()
-	.text(
-		"Orders",
-		async (ctx: any) => await ctx.conversation.enter("getOrders")
-	)
-	.row()
-	.text(
-		"Cancel Limit Orders",
-		async (ctx: any) => await ctx.conversation.enter("getOrders")
-	)
-	.row();
+	// .text(
+	// 	"Buy Limit",
+	// 	async (ctx: any) => await ctx.conversation.enter("BuyLimitConversation")
+	// )
+	// .text(
+	// 	"Sell Limit",
+	// 	async (ctx: any) =>
+	// 		await ctx.conversation.enter("sellLimitConversation")
+	// )
+	// .row()
+	// .text(
+	// 	"Orders",
+	// 	async (ctx: any) => await ctx.conversation.enter("getOrders")
+	// )
+	// .row()
+	// .text(
+	// 	"Cancel Limit Orders",
+	// 	async (ctx: any) => await ctx.conversation.enter("getOrders")
+	// )
+	// .row();
 // .text("Test Sell", async (ctx) => await ctx.conversation.enter("testSell")).row()
 bot.use(createConversation(greeting));
 bot.use(createConversation(buyConversation as any));
@@ -1010,26 +1040,26 @@ bot.command("start", async (ctx: any) => {
 			const ethGasPrice = await getGasPrice(ETH_RPC_URL);
 			// console.log(bscGasPrice, ethGasPrice, PublicKey)
 			//get wallet Addressess
-			const bscWalletsBalances = [
-				await new Wallet(
-					97,
-					BSC_TESTNET.rpc,
-					userData.pK1,
-					PublicKey[0]
-				).checkEthBalance(),
-				await new Wallet(
-					97,
-					BSC_TESTNET.rpc,
-					userData.pK2,
-					PublicKey[1]
-				).checkEthBalance(),
-				await new Wallet(
-					97,
-					BSC_TESTNET.rpc,
-					userData.pK3,
-					PublicKey[2]
-				).checkEthBalance(),
-			];
+			// const bscWalletsBalances = [
+			// 	await new Wallet(
+			// 		97,
+			// 		BSC_TESTNET.rpc,
+			// 		userData.pK1,
+			// 		PublicKey[0]
+			// 	).checkEthBalance(),
+			// 	await new Wallet(
+			// 		97,
+			// 		BSC_TESTNET.rpc,
+			// 		userData.pK2,
+			// 		PublicKey[1]
+			// 	).checkEthBalance(),
+			// 	await new Wallet(
+			// 		97,
+			// 		BSC_TESTNET.rpc,
+			// 		userData.pK3,
+			// 		PublicKey[2]
+			// 	).checkEthBalance(),
+			// ];
 			const ethWalletsBalances = [
 				await new Wallet(
 					1116,
@@ -1050,10 +1080,10 @@ bot.command("start", async (ctx: any) => {
 					PublicKey[2]
 				).checkEthBalance(),
 			];
-			console.log(bscWalletsBalances);
+			// console.log(bscWalletsBalances);
 			//get bsc and eth Balance
 
-			const msg = `🤖Welcome to corebot 🤖\n⬩ BSC Gas ⛽️:  ${bscGasPrice} GWEI \n ⬩  CORE Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains\n \n═══ Your Wallets ═══ \n ===BSC Balance=== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${bscWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${bscWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${bscWalletsBalances[2]} \n \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
+			const msg = `🤖Welcome to COREBOT 🤖\n ⬩  CORE Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n ═══ Your Wallets ═══  \n =====CORE Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
 
 			ctx.reply(msg, { reply_markup: menu });
 		}
@@ -1078,7 +1108,7 @@ bot.command("settings", async (ctx: any) => {
 			await getWalletAddress(userData.pK2),
 			await getWalletAddress(userData.pK3),
 		];
-		const msg = `🤖 Corebot Setting🤖\n⬩ ======= Wallets ======== \n Wallet 1 \n ${PublicKey[0]} \n Private Key \n:${userData.pK1} \n Wallet 2 \n ${PublicKey[1]} \n Private Key \n:${userData.pK2} \n Wallet 3 \n ${PublicKey[2]} \n Private Key \n:${userData.pK3} \n \n \n Kindly make sure to pls keep private key safe`;
+		const msg = `🤖 COREBOT Setting🤖\n⬩ ======= Wallets ======== \n Wallet 1 \n ${PublicKey[0]} \n Private Key \n:${userData.pK1} \n Wallet 2 \n ${PublicKey[1]} \n Private Key \n:${userData.pK2} \n Wallet 3 \n ${PublicKey[2]} \n Private Key \n:${userData.pK3} \n \n \n Kindly make sure to pls keep private key safe`;
 		ctx.reply(msg);
 	}
 });
@@ -1088,7 +1118,6 @@ bot.command("updatePrivateKeys", async (ctx: any) => {
 });
 
 
-// Example usage
 bot.command("balance", async (ctx: any) => {
     try {
 		const userId = ctx.from.id.toString();
@@ -1108,26 +1137,26 @@ bot.command("balance", async (ctx: any) => {
 			const ethGasPrice = await getGasPrice(ETH_RPC_URL);
 			console.log(bscGasPrice, ethGasPrice, PublicKey)
 			// get wallet Addressess
-			const bscWalletsBalances = [
-				await new Wallet(
-					97,
-					BSC_TESTNET.rpc,
-					userData.pK1,
-					PublicKey[0]
-				).checkEthBalance(),
-				await new Wallet(
-					97,
-					BSC_TESTNET.rpc,
-					userData.pK2,
-					PublicKey[1]
-				).checkEthBalance(),
-				await new Wallet(
-					97,
-					BSC_TESTNET.rpc,
-					userData.pK3,
-					PublicKey[2]
-				).checkEthBalance(),
-			];
+			// const bscWalletsBalances = [
+			// 	await new Wallet(
+			// 		97,
+			// 		BSC_TESTNET.rpc,
+			// 		userData.pK1,
+			// 		PublicKey[0]
+			// 	).checkEthBalance(),
+			// 	await new Wallet(
+			// 		97,
+			// 		BSC_TESTNET.rpc,
+			// 		userData.pK2,
+			// 		PublicKey[1]
+			// 	).checkEthBalance(),
+			// 	await new Wallet(
+			// 		97,
+			// 		BSC_TESTNET.rpc,
+			// 		userData.pK3,
+			// 		PublicKey[2]
+			// 	).checkEthBalance(),
+			// ];
 			const ethWalletsBalances = [
 				await new Wallet(
 					1116,
@@ -1148,10 +1177,10 @@ bot.command("balance", async (ctx: any) => {
 					PublicKey[2]
 				).checkEthBalance(),
 			];
-			console.log(bscWalletsBalances);
+			// console.log(bscWalletsBalances);
 			//get bsc and eth Balance
 
-			const msg = `🤖Welcome to COREBOT 🤖\n⬩ BSC Gas ⛽️:  ${bscGasPrice} GWEI \n ⬩  CORE Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains\n \n═══ Your Wallets ═══ \n ===BSC Balance=== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${bscWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${bscWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${bscWalletsBalances[2]} \n \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
+			const msg = `🤖Welcome to COREBOT 🤖\n⬩ BSC Gas ⛽️:  ${bscGasPrice} GWEI \n ⬩  CORE Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
 
 			ctx.reply(msg);
 		}
@@ -1186,3 +1215,5 @@ app.use(`/${bot.token}`, webhookCallback(bot, "express"));
 app.use((_req, res) => res.status(200).send());
 
 app.listen(port, () => console.log(`listening on port ${port}`));
+
+
