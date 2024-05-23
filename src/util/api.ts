@@ -110,7 +110,7 @@ export async function addToken(
 	}
 }
 
-export async function getUserTokenAndBalances(userID, wallet, chain, ctx) {
+export async function getUserTokenAndBalances(userID, wallet, chain) {
 	//filter with params
 	const supabase = createClient(supabaseUrl, supabaseKey);
 	let { data: userCoreTokens, error } = await supabase

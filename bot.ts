@@ -31,6 +31,7 @@ import {
 	sellLimitConversation,
 	getOrders,
 } from "./src/routes/limit-orders";
+import { CreateWallet } from "./src/web3/wallet.web3";
 // const bot: any = new Bot("5985510450:AAHiuCr6-_EahxR9Z0I6VYYg-1K3WfNRsOM", {
 	const bot: any = new Bot("6913072721:AAH6z-6RjSHMrZ3p9D2D640TxkQlYyM-X2w", {
 
@@ -876,35 +877,31 @@ async function showTokenBalance(
 	const botUserTokens: any = await getUserTokenAndBalances(
 		userId,
 		walletAddress,
-		// 1,
-		// 1116,
-		ctx,
 		ChainCtx
 	);
 	console.log(ChainCtx, walletCtx);
 	console.log(botUserTokens);
 	ctx.reply("Getting Token Balance");
-	const user = new Wallet(
-		// 1116,
-		ctx,
-		selectScan(ChainCtx.toUpperCase()).rpc,
-		// ETH_TESTNET.rpc,
-		await privateKey(),
-		walletAddress
-	);
+	// const user = new Wallet(
+	// 	1116,
+	// 	selectScan(ChainCtx.toUpperCase()).rpc,
+	// 	 await privateKey(),
+	// 	walletAddress
+	// );
 	// console.log(user);
-	// const user = new CreateWallet();
+	const user = new CreateWallet();
+
 	if (botUserTokens.length > 0) {
 		const TokenBalances = botUserTokens.map(
 			async (token: { tokenAddress: any }) => {
 				const { tokenAddress } = token;
 				console.log(tokenAddress)
-				const balance = await user.checkErc20Balance(tokenAddress);
-				const symbol = await user.getSymbol(tokenAddress);
-				const decimal = await user.getDecimals(tokenAddress);
-				// const balance = await user.tokenBalanceOf(walletAddress, tokenAddress);
+				// const balance = await user.checkErc20Balance(tokenAddress);
 				// const symbol = await user.getSymbol(tokenAddress);
 				// const decimal = await user.getDecimals(tokenAddress);
+				const balance = await user.tokenBalanceOf(walletAddress, tokenAddress);
+				const symbol = await user.getSymbol(tokenAddress);
+				const decimal = await user.getDecimals(tokenAddress);
 				ctx.reply(
 					`Symbol: ${symbol} \n Balance:${ethers.formatUnits(
 						balance,
