@@ -117,8 +117,8 @@ const ABI = [
 const DEV_NET = "http://127.0.0.1:8545/";
 // const ETH_RPC_URL =
 // 	"https://eth-mainnet.nodereal.io/v1/07c15e247ea043459af03f3c0bc0c018";
-const ETH_RPC_URL =
-"https://rpc-core.icecreamswap.com";
+const ETH_RPC_URL = "https://testnet-rpc.plumenetwork.xyz/http"
+// "https://rpc-core.icecreamswap.com";
 // const ETH_TESTNET = {
 // 	rpc: ETH_RPC_URL,
 // 	router: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
@@ -127,9 +127,12 @@ const ETH_RPC_URL =
 // };
 const ETH_TESTNET = {
 	rpc: ETH_RPC_URL,
-	router: "0xBb5e1777A331ED93E07cF043363e48d320eb96c4",
-	weth: "0x40375C92d9FAf44d2f9db9Bd9ba41a3317a2404f",
-	page: "https://scan.coredao.org",
+	// router: "0xBb5e1777A331ED93E07cF043363e48d320eb96c4",
+	router: "0x9Af36aD30ecAc6ce8B6D1F3d6C42711c48Ab627f",
+	// weth: "0x40375C92d9FAf44d2f9db9Bd9ba41a3317a2404f",
+	weth: "0xd9d6507119Ec56ce22A89bEdAcd6B44D495BFf08",
+	// page: "https://scan.coredao.org",
+	page: "https://plume-testnet.explorer.caldera.xyz/"
 };
 const BSC_TESTNET = {
 	rpc: "https://bsc-dataseed.binance.org",

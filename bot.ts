@@ -60,7 +60,7 @@ async function greeting(
 }
 
 const selectScan = (chain: string) =>
-	chain === "CORE" ? BSC_TESTNET : ETH_TESTNET;
+	chain === "ETH" ? BSC_TESTNET : ETH_TESTNET;
 
 const calculatePercentage = (walletBalance: string, percent: string) =>
 	(parseFloat(walletBalance) * parseFloat(percent)) / 100;
@@ -83,14 +83,14 @@ async function withdrawTokenConversation(
 	const keyboardChain = new InlineKeyboard()
 		// .text("BSC", "BSC")
 		// .text("ETH", "ETH");
-		.text("CORE", "CORE");
+		.text("ETH", "ETH");
 	// await ctx.reply("Select Chain : (BSC/ETH)", {
-		await ctx.reply("Select Chain : (CORE)", {
+		await ctx.reply("Select Chain : (ETH)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
-		// ["BSC", "CORE"],
-		["CORE"],
+		// ["BSC", "ETH"],
+		["ETH"],
 		{
 			otherwise: (ctx: { reply: (arg0: string, arg1: any) => any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -190,14 +190,14 @@ async function withDrawEthConversation(
 	const keyboardChain = new InlineKeyboard()
 		// .text("BSC", "BSC")
 		// .text("ETH", "ETH");
-		.text("CORE", "CORE");
+		.text("ETH", "ETH");
 	// ctx.reply("Select Chain : (BSC/ETH)", {
-		ctx.reply("Select Chain : (CORE)", {
+		ctx.reply("Select Chain : (ETH)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
 		// ["BSC", "ETH"],
-		["CORE"],
+		["ETH"],
 		{
 			otherwise: (ctx: { reply: any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -348,14 +348,14 @@ async function sellConversation(
 	const keyboardChain = new InlineKeyboard()
 		// .text("BSC", "BSC")
 		// .text("ETH", "ETH");
-		.text("CORE", "CORE");
+		.text("ETH", "ETH");
 	// await ctx.reply("Select Chain : (BSC/ETH)", {
-			await ctx.reply("Select Chain : (CORE)", {
+			await ctx.reply("Select Chain : (ETH)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
 		// ["BSC", "ETH"],
-		["CORE"],
+		["ETH"],
 		{
 			otherwise: (ctx: {
 				reply: (
@@ -371,7 +371,7 @@ async function sellConversation(
 	let tokenAddressCtx = await conversation.waitFor(":text");
 	if (!isAddress(tokenAddressCtx.msg.text)) {
 		await ctx.reply(
-			"Not a a Coredao Address \n Kindly input Token Contract Address:"
+			"Not a a ETHdao Address \n Kindly input Token Contract Address:"
 		);
 		tokenAddressCtx = await conversation.waitFor(":text");
 	}
@@ -481,7 +481,7 @@ async function sellConversation(
 	};
 	const walletAddress = await getWalletAddress(privateKey());
 	const user = new Wallet(
-		1116,
+		161221135,
 		selectScan(ChainCtx.toUpperCase()).rpc,
 		privateKey(),
 		walletAddress
@@ -553,14 +553,14 @@ async function buyConversation(
 	const keyboardChain = new InlineKeyboard()
 		// .text("BSC", "BSC")
 		// .text("ETH", "ETH");
-		.text("CORE", "CORE");
+		.text("ETH", "ETH");
 	// await ctx.reply("Select Chain : (BSC/ETH)", {
-		await ctx.reply("Select Chain : (CORE)", {
+		await ctx.reply("Select Chain : (ETH)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
 		// ["BSC", "ETH"],
-		["CORE"],
+		["ETH"],
 		{
 			otherwise: (ctx: {
 				reply: (
@@ -599,7 +599,7 @@ async function buyConversation(
 		.text("100 %", "98")
 		.row();
 	// await ctx.reply("Kindly input Purchase Amount: (in BNB/ETH): ", {
-		await ctx.reply("Kindly input Purchase Amount: (in CORE): ", {
+		await ctx.reply("Kindly input Purchase Amount: (in ETH): ", {
 		reply_markup: keyboardAmount,
 	});
 	const responseAmount = await conversation.waitForCallbackQuery(
@@ -683,7 +683,9 @@ async function buyConversation(
 		walletCtx
 	);
 	//check for gasFee, gas balance
+	// const bscGasPrice = await getGasPrice(ETH_TESTNET.rpc);
 	const bscGasPrice = await getGasPrice(BSC_TESTNET.rpc);
+
 	const privateKey = () => {
 		switch (walletCtx.toLowerCase()) {
 			case "w1":
@@ -760,14 +762,14 @@ async function addTokenConversation(
 	const keyboardChain = new InlineKeyboard()
 		// .text("BSC", "BSC")
 		// .text("ETH", "ETH");
-		.text("CORE", "CORE");
+		.text("ETH", "ETH");
 	// await ctx.reply("Select Chain : (BSC/ETH)", {
-		await ctx.reply("Select Chain : (CORE)", {
+		await ctx.reply("Select Chain : (ETH)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
 		// ["BSC", "ETH"],
-		["CORE"],
+		["ETH"],
 		{
 			otherwise: (ctx: { reply: any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -833,13 +835,13 @@ async function showTokenBalance(
 		// .text("BSC", "BSC")
 	// 	.text("ETH", "ETH");
 	// ctx.reply("Select Chain : (BSC/ETH)", {
-		.text("CORE", "CORE");
-		ctx.reply("Select Chain : (CORE)", {
+		.text("ETH", "ETH");
+		ctx.reply("Select Chain : (ETH)", {
 		reply_markup: keyboardChain,
 	});
 	const responseChain = await conversation.waitForCallbackQuery(
 		// ["BSC", "ETH"],
-		["CORE"],
+		["ETH"],
 		{
 			otherwise: (ctx: { reply: any }) =>
 				ctx.reply("Use the buttons!", { reply_markup: keyboardChain }),
@@ -883,7 +885,7 @@ async function showTokenBalance(
 	console.log(botUserTokens);
 	ctx.reply("Getting Token Balance");
 	// const user = new Wallet(
-	// 	1116,
+	// 	161221135,
 	// 	selectScan(ChainCtx.toUpperCase()).rpc,
 	// 	 await privateKey(),
 	// 	walletAddress
@@ -956,7 +958,7 @@ const menu = new Menu("my-menu-identifier")
 	.row()
 	.text(
 		// "Withdraw ETH/BNB   ",
-		"Withdraw CORE",
+		"Withdraw ETH",
 		async (ctx: any) =>
 			await ctx.conversation.enter("withDrawEthConversation")
 	)
@@ -1056,22 +1058,22 @@ bot.command("start", async (ctx: any) => {
 			// 		userData.pK3,
 			// 		PublicKey[2]
 			// 	).checkEthBalance(),
-			// ];
+			// ];F
 			const ethWalletsBalances = [
 				await new Wallet(
-					1116,
+					161221135,
 					ETH_TESTNET.rpc,
 					userData.pK1,
 					PublicKey[0]
 				).checkEthBalance(),
 				await new Wallet(
-					1116,
+					161221135,
 					ETH_TESTNET.rpc,
 					userData.pK2,
 					PublicKey[1]
 				).checkEthBalance(),
 				await new Wallet(
-					1116,
+					161221135,
 					ETH_TESTNET.rpc,
 					userData.pK3,
 					PublicKey[2]
@@ -1080,7 +1082,7 @@ bot.command("start", async (ctx: any) => {
 			// console.log(bscWalletsBalances);
 			//get bsc and eth Balance
 
-			const msg = `🤖Welcome to COREBOT 🤖\n ⬩  CORE Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n ═══ Your Wallets ═══  \n =====CORE Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
+			const msg = `🤖Welcome to ETHBOT 🤖\n ⬩  ETH Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n ═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
 
 			ctx.reply(msg, { reply_markup: menu });
 		}
@@ -1105,7 +1107,7 @@ bot.command("settings", async (ctx: any) => {
 			await getWalletAddress(userData.pK2),
 			await getWalletAddress(userData.pK3),
 		];
-		const msg = `🤖 COREBOT Setting🤖\n⬩ ======= Wallets ======== \n Wallet 1 \n ${PublicKey[0]} \n Private Key \n:${userData.pK1} \n Wallet 2 \n ${PublicKey[1]} \n Private Key \n:${userData.pK2} \n Wallet 3 \n ${PublicKey[2]} \n Private Key \n:${userData.pK3} \n \n \n Kindly make sure to pls keep private key safe`;
+		const msg = `🤖 ETHBOT Setting🤖\n⬩ ======= Wallets ======== \n Wallet 1 \n ${PublicKey[0]} \n Private Key \n:${userData.pK1} \n Wallet 2 \n ${PublicKey[1]} \n Private Key \n:${userData.pK2} \n Wallet 3 \n ${PublicKey[2]} \n Private Key \n:${userData.pK3} \n \n \n Kindly make sure to pls keep private key safe`;
 		ctx.reply(msg);
 	}
 });
@@ -1156,19 +1158,19 @@ bot.command("balance", async (ctx: any) => {
 			// ];
 			const ethWalletsBalances = [
 				await new Wallet(
-					1116,
+					161221135,
 					ETH_TESTNET.rpc,
 					userData.pK1,
 					PublicKey[0]
 				).checkEthBalance(),
 				await new Wallet(
-					1116,
+					161221135,
 					ETH_TESTNET.rpc,
 					userData.pK2,
 					PublicKey[1]
 				).checkEthBalance(),
 				await new Wallet(
-					1116,
+					161221135,
 					ETH_TESTNET.rpc,
 					userData.pK3,
 					PublicKey[2]
@@ -1177,7 +1179,7 @@ bot.command("balance", async (ctx: any) => {
 			// console.log(bscWalletsBalances);
 			//get bsc and eth Balance
 
-			const msg = `🤖Welcome to COREBOT 🤖\n⬩ BSC Gas ⛽️:  ${bscGasPrice} GWEI \n ⬩  CORE Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
+			const msg = `🤖Welcome to ETHBOT 🤖\n⬩ BSC Gas ⛽️:  ${bscGasPrice} GWEI \n ⬩  ETH Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
 
 			ctx.reply(msg);
 		}

@@ -48,8 +48,8 @@ export async function buyToken(
 			recipient,
 			Date.now() + 1000 * 60 * 5, //5 minutes
 			{
-				//'gasLimit': 1671500610,
-				//'gasPrice': 1671500610,
+				// 'gasLimit': 1671500610,
+				// 'gasPrice': 1671500610,
 				//'nonce': null, //set you want buy at where position in blocks
 				value: amountIn,
 			}

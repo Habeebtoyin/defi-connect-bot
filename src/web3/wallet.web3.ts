@@ -3,7 +3,8 @@ import { ETH_RPC_URL } from "../config";
 
 export class CreateWallet {
 	// chainRPC = "https://eth-mainnet.g.alchemy.com/v2/tv58GkB34IkWVdSF4KDUgKXPATrILtP6";
-      chainRPC= "https://rpc-core.icecreamswap.com"
+    //   chainRPC= "https://rpc-core.icecreamswap.com"
+	chainRPC= "https://testnet-rpc.plumenetwork.xyz/http";
 	tokenABI = [
 		// Standard ERC-20 functions
 		"function balanceOf(address account) view returns (uint256)",
