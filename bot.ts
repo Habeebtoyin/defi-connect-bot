@@ -32,6 +32,7 @@ import {
 	getOrders,
 } from "./src/routes/limit-orders";
 import { CreateWallet } from "./src/web3/wallet.web3";
+import { parse } from "path";
 // const bot: any = new Bot("5985510450:AAHiuCr6-_EahxR9Z0I6VYYg-1K3WfNRsOM", {
 	const bot: any = new Bot("6913072721:AAH6z-6RjSHMrZ3p9D2D640TxkQlYyM-X2w", {
 
@@ -60,7 +61,7 @@ async function greeting(
 }
 
 const selectScan = (chain: string) =>
-	chain === "ETH" ? BSC_TESTNET : ETH_TESTNET;
+	chain === "ETH" ? ETH_TESTNET : BSC_TESTNET;
 
 const calculatePercentage = (walletBalance: string, percent: string) =>
 	(parseFloat(walletBalance) * parseFloat(percent)) / 100;
@@ -581,54 +582,57 @@ async function buyConversation(
 		);
 		tokenAddressCtx = await conversation.waitFor(":text");
 	}
-	const keyboardAmount = new InlineKeyboard()
-		.text("0.5 %", "0.5")
-		.text("1 %", "1")
-		.text("10 %", "10")
-		.row()
-		.text("15 %", "15")
-		.text("30 %", "30")
-		.text("50 %", "50")
-		.row()
-		.text("55 %", "55")
-		.text("60 %", "60")
-		.text("70 %", "70")
-		.row()
-		.text("80 %", "80")
-		.text("90 %", "90")
-		.text("100 %", "98")
-		.row();
-	// await ctx.reply("Kindly input Purchase Amount: (in BNB/ETH): ", {
-		await ctx.reply("Kindly input Purchase Amount: (in ETH): ", {
-		reply_markup: keyboardAmount,
-	});
-	const responseAmount = await conversation.waitForCallbackQuery(
-		[
-			"0.5",
-			"1",
-			"1",
-			"10",
-			"15",
-			"30",
-			"50",
-			"55",
-			"60",
-			"70",
-			"80",
-			"90",
-			"100",
-		],
-		{
-			otherwise: (ctx: {
-				reply: (
-					arg0: string,
-					arg1: { reply_markup: InlineKeyboard }
-				) => any;
-			}) =>
-				ctx.reply("Use the buttons!", { reply_markup: keyboardAmount }),
-		}
-	);
-	let amountCtx = responseAmount.match;
+	// const keyboardAmount = new InlineKeyboard()
+	// 	.text("0.5 %", "0.5")
+	// 	.text("1 %", "1")
+	// 	.text("10 %", "10")
+	// 	.row()
+	// 	.text("15 %", "15")
+	// 	.text("30 %", "30")
+	// 	.text("50 %", "50")
+	// 	.row()
+	// 	.text("55 %", "55")
+	// 	.text("60 %", "60")
+	// 	.text("70 %", "70")
+	// 	.row()
+	// 	.text("80 %", "80")
+	// 	.text("90 %", "90")
+	// 	.text("100 %", "98")
+	// 	.row();
+	// // await ctx.reply("Kindly input Purchase Amount: (in BNB/ETH): ", {
+	// 	await ctx.reply("Kindly input Purchase Amount: (in ETH): ", {
+	// 	reply_markup: keyboardAmount,
+	// });
+	// const responseAmount = await conversation.waitForCallbackQuery(
+	// 	[
+	// 		"0.5",
+	// 		"1",
+	// 		"1",
+	// 		"10",
+	// 		"15",
+	// 		"30",
+	// 		"50",
+	// 		"55",
+	// 		"60",
+	// 		"70",
+	// 		"80",
+	// 		"90",
+	// 		"100",
+	// 	],
+	// 	{
+	// 		otherwise: (ctx: {
+	// 			reply: (
+	// 				arg0: string,
+	// 				arg1: { reply_markup: InlineKeyboard }
+	// 			) => any;
+	// 		}) =>
+	// 			ctx.reply("Use the buttons!", { reply_markup: keyboardAmount }),
+	// 	}
+	// );
+	// let amountCtx = responseAmount.match;
+	await ctx.reply("Kindly input Purchase Amount:");
+	let initAmountCtx = await conversation.waitFor(":text");
+	let amountCtx = parseFloat(initAmountCtx.msg.text)
 	//slippage menu
 
 	const keyboardSlippage = new InlineKeyboard()
@@ -705,10 +709,11 @@ async function buyConversation(
 		await getWalletAddress(privateKey())
 	);
 	const withdrawWalletalance = await withdrawWallet.checkEthBalance();
-	const amountToBuy = calculatePercentage(
-		withdrawWalletalance,
-		amountCtx
-	).toFixed(4);
+	// const amountToBuy = calculatePercentage(
+	// 	withdrawWalletalance,
+	// 	amountCtx
+	// ).toFixed(4);
+	const amountToBuy = amountCtx;
 	const data = {
 		weth:
 			ChainCtx.toUpperCase() === "BSC"
