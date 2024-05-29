@@ -34,7 +34,8 @@ import {
 import { CreateWallet } from "./src/web3/wallet.web3";
 import { parse } from "path";
 // const bot: any = new Bot("5985510450:AAHiuCr6-_EahxR9Z0I6VYYg-1K3WfNRsOM", {
-	const bot: any = new Bot("6913072721:AAH6z-6RjSHMrZ3p9D2D640TxkQlYyM-X2w", {
+	// const bot: any = new Bot("6913072721:AAH6z-6RjSHMrZ3p9D2D640TxkQlYyM-X2w", {
+		 const bot: any = new Bot("7209821420:AAEuaoJlSy3htvuTbMaskoKXtQDYSOlCGXg", {
 
 	client: {
 		// We accept the drawback of webhook replies for typing status.
@@ -1087,7 +1088,7 @@ bot.command("start", async (ctx: any) => {
 			// console.log(bscWalletsBalances);
 			//get bsc and eth Balance
 
-			const msg = `🤖Welcome to ETHBOT 🤖\n ⬩  ETH Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n ═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
+			const msg = `🤖Welcome to DEFICONNECT BOT 🤖\n ⬩  ETH Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n ═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
 
 			ctx.reply(msg, { reply_markup: menu });
 		}
@@ -1112,7 +1113,7 @@ bot.command("settings", async (ctx: any) => {
 			await getWalletAddress(userData.pK2),
 			await getWalletAddress(userData.pK3),
 		];
-		const msg = `🤖 ETHBOT Setting🤖\n⬩ ======= Wallets ======== \n Wallet 1 \n ${PublicKey[0]} \n Private Key \n:${userData.pK1} \n Wallet 2 \n ${PublicKey[1]} \n Private Key \n:${userData.pK2} \n Wallet 3 \n ${PublicKey[2]} \n Private Key \n:${userData.pK3} \n \n \n Kindly make sure to pls keep private key safe`;
+		const msg = `🤖 DEFICONNECT BOT Setting🤖\n⬩ ======= Wallets ======== \n Wallet 1 \n ${PublicKey[0]} \n Private Key \n:${userData.pK1} \n Wallet 2 \n ${PublicKey[1]} \n Private Key \n:${userData.pK2} \n Wallet 3 \n ${PublicKey[2]} \n Private Key \n:${userData.pK3} \n \n \n Kindly make sure to pls keep private key safe`;
 		ctx.reply(msg);
 	}
 });
@@ -1184,7 +1185,7 @@ bot.command("balance", async (ctx: any) => {
 			// console.log(bscWalletsBalances);
 			//get bsc and eth Balance
 
-			const msg = `🤖Welcome to ETHBOT 🤖\n⬩ BSC Gas ⛽️:  ${bscGasPrice} GWEI \n ⬩  ETH Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
+			const msg = `🤖Welcome to DEFICONNECT BOT 🤖\n⬩  ETH Gas ⛽️ :  ${ethGasPrice} GWEI \nSnipe & Swap with elite speed across multiple chains \n═══ Your Wallets ═══  \n =====ETH Balance==== \n Wallet 1 \n ${PublicKey[0]} \n Balance:${ethWalletsBalances[0]} \n Wallet 2 \n ${PublicKey[1]} \n Balance:${ethWalletsBalances[1]} \n Wallet 3 \n ${PublicKey[2]} \n Balance:${ethWalletsBalances[2]} `;
 
 			ctx.reply(msg);
 		}
