@@ -15,7 +15,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export async function authUser(userId, ctx) {
 	try {
 		const supabase = createClient(supabaseUrl, supabaseKey);
-		ctx.reply("Fetching data");
+		ctx.reply("⏳ Fetching data...");
 		let { data: userCoreBot, error }: any = await supabase
 			// .from("botUsers")
 			.from("userCoreBot")
@@ -102,11 +102,11 @@ export async function addToken(
 		);
 		if (res) {
 			// console.log(res)
-			ctx.reply("Token Added Successfully");
+			ctx.reply("Token Added Successfully ✅");
 		}
 	} catch (error) {
 		console.log(error);
-		ctx.reply("Error While Adding token");
+		ctx.reply("❗ Error While Adding token");
 	}
 }
 

@@ -55,10 +55,11 @@ export async function buyToken(
 			}
 		);
 
+		ctx.reply("🎊🎉 Buy Successful ✅");
 		const receipt = await tx.wait();
 		console.log(receipt);
 		ctx.reply(
-			`Transaction receipt : ${scan}/tx/${receipt.logs[1].transactionHash}`
+			`🧾 Transaction receipt : ${scan}/tx/${receipt.logs[1].transactionHash}`
 		);
 		//  console.log(`Transaction receipt : https://www.bscscan.com/tx/${receipt.logs[1].transactionHash}`);
 	} catch (err) {
@@ -72,17 +73,10 @@ export async function buyToken(
             transactionHash : ${error.transactionHash}
             message : ${error}
             }`);
-			ctx.reply(`Error caused by : 
-                {
-                reason : ${error.reason},
-                message : ${error.message}
-                }`);
+			ctx.reply(`❗An error occured while transaction was being processed \n \nℹ️ Error could be due to insufficient funds, try again`);
 		}
 		if (error.code) {
-			ctx.reply(`Error caused by : 
-            {
-            reason : ${error.code},
-            }`);
+			ctx.reply(`❗An error occured while transaction was being processed \n \nℹ️ Error could be due to insufficient funds, try again`);
 		}
 		console.log({ error });
 	}
@@ -107,10 +101,10 @@ async function approve(
 		// await contract.approve(operator, "1000000000000000000000000")
 		const receipt = await tx.wait();
 		//console.log("approved gone")
-		ctx.reply("Router Contract Approved");
+		ctx.reply("Router Contract Approved ✅");
 	} catch (error) {
 		console.log(error);
-		ctx.reply(" Error while Appoving Router Contract");
+		ctx.reply("❗ Error while Appoving Router Contract.\n\nℹ️ Error could be due to incorrect wallet address");
 	}
 }
 export async function sellToken(
@@ -179,9 +173,12 @@ export async function sellToken(
 		)
 		.then((res) => {
 			//  console.log(res)
-			ctx.reply("Sell Successful ");
+			ctx.reply("🎊🎉 Sell Successful ✅");
+			// ctx.reply(
+			// 	`🧾 Transaction receipt: ${scan}/tx/${res.logs[1].transactionHash}`
+			// );
 			ctx.reply(
-				`Transaction receipt : ${scan}/tx/${res.logs[1].transactionHash}`
+				`🧾 Transaction receipt : ${scan}/tx/${res.hash}`
 			);
 			return res;
 		})
@@ -195,18 +192,10 @@ export async function sellToken(
             transactionHash : ${error.transactionHash}
             message : ${error}
             }`);
-				ctx.reply(`Error caused by : 
-                {
-                reason : ${error.reason},
-                message : ${error.message}
-                }`);
+			ctx.reply(`❗An error occured while transaction was being processed \n \nℹ️ Error could be due to insufficient funds, try again`);
 			}
 			if (error.code) {
-				ctx.reply(`Error caused by : 
-            {
-            code : ${error.code},
-            message : ${error.info.error.message},
-            }`);
+				ctx.reply(`❗An error occured while transaction was being processed \n \nℹ️ Error could be due to insufficient funds, try again`);
 			}
 			console.log({ error });
 		});
